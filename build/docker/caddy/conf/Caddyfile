@@ -1,0 +1,14 @@
+{
+    log {
+    	output stdout
+    }
+}
+
+:8080 {
+	root * /var/www/app/public
+
+	# Or serve a PHP site through php-fpm:
+	# php_fastcgi $PHP_UPSTREAM_CONTAINER:$PHP_UPSTREAM_PORT
+
+	reverse_proxy $PHP_UPSTREAM_CONTAINER:$PHP_UPSTREAM_PORT
+}

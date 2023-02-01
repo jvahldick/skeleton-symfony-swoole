@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  caddy:
+    build:
+      context: .
+      dockerfile: build/docker/caddy/Dockerfile
+      args:
+        - PHP_UPSTREAM_CONTAINER=php
+        - PHP_UPSTREAM_PORT=8000
+    volumes:
+      - ./app/public:/var/www/app/public
+    ports:
+      - "8085:8080"
+
+  php:
+    build:
+      dockerfile: ./build/docker/php/Dockerfile
+    volumes:
+      - './app:/var/www/app'
+    ports:
+      - "8001:8000"
